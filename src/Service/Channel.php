@@ -4,6 +4,10 @@ namespace NiclasKahlmeier\RocketChat\Service;
 
 trait Channel
 {
+    /**
+     *
+     * @return mixed
+     */
     public function getChannelList()
     {
         $response = $this->buildUrl('channels.list');
@@ -11,367 +15,178 @@ trait Channel
         return $this->response($response, json_decode($response->body())->channels);
     }
 
-    public function getChannelMembers($roomId)
+    /**
+     *
+     * @param string $roomId
+     * @return mixed
+     */
+    public function getChannelMembers(string $roomId)
     {
         $response = $this->buildUrl('channels.members', 'get', ['roomId' => $roomId]);
 
         return $this->response($response, json_decode($response->body())->members);
     }
 
-    public function archiveChannel($roomId)
+    /**
+     *
+     * @param string $roomId
+     * @return mixed
+     */
+    public function getChannelModerators(string $roomId)
     {
-        $response = $this->buildUrl('channels.members', 'get', ['roomId' => $roomId]);
+        $response = $this->buildUrl('channels.moderators', 'get', ['roomId' => $roomId]);
 
-        return $this->response($response, json_decode($response->body())->members);
+        return $this->response($response, json_decode($response->body())->moderators);
     }
 
+    /**
+     *
+     * @param string $roomId
+     * @return mixed
+     */
+    public function archiveChannel(string $roomId)
+    {
+        $response = $this->buildUrl('channels.archive', 'post', ['roomId' => $roomId]);
 
-    // public $id;
-    // public $name;
-    // public $members = array();
+        return $this->response($response, json_decode($response->body())->success);
+    }
 
-    // public function __construct($name, $members = array())
-    // {
-    //     parent::__construct();
-    //     if (is_string($name)) {
-    //         $this->name = $name;
-    //     } elseif (isset($name->_id)) {
-    //         $this->name = $name->name;
-    //         $this->id = $name->_id;
-    //     }
-    //     foreach ($members as $member) {
-    //         if (is_a($member, '\RocketChat\User')) {
-    //             $this->members[] = $member;
-    //         } elseif (is_string($member)) {
-    //             // TODO
-    //             $this->members[] = new User($member);
-    //         }
-    //     }
-    // }
+    /**
+     *
+     * @param string $roomId
+     * @return mixed
+     */
+    public function deleteChannel(string $roomId)
+    {
+        $response = $this->buildUrl('channels.delete', 'post', ['roomId' => $roomId]);
 
-    // /**
-    // * Creates a new channel.
-    // */
-    // public function create()
-    // {
-    //     // get user ids for members
-    //     $members_id = array();
-    //     foreach ($this->members as $member) {
-    //         if (is_string($member)) {
-    //             $members_id[] = $member;
-    //         } elseif (isset($member->username) && is_string($member->username)) {
-    //             $members_id[] = $member->username;
-    //         }
-    //     }
+        return $this->response($response, json_decode($response->body())->success);
+    }
 
-    //     $response = Request::post($this->api . 'channels.create')
-    //         ->body(array('name' => $this->name, 'members' => $members_id))
-    //         ->send();
+    /**
+     *
+     * @param string $roomId
+     * @return mixed
+     */
+    public function getChannelInfo(string $roomId)
+    {
+        $response = $this->buildUrl('channels.info', 'get', ['roomId' => $roomId]);
 
-    //     if ($response->code == 200 && isset($response->body->success) && $response->body->success == true) {
-    //         $this->id = $response->body->channel->_id;
-    //         return $response->body->channel;
-    //     } else {
-    //         echo($response->body->error . "\n");
-    //         return false;
-    //     }
-    // }
-    // /**
-    // * Creates a new channel.
-    // */
-    // public function archive()
-    // {
-    //     // get user ids for members
-    //     $members_id = array();
-    //     foreach ($this->members as $member) {
-    //         if (is_string($member)) {
-    //             $members_id[] = $member;
-    //         } elseif (isset($member->username) && is_string($member->username)) {
-    //             $members_id[] = $member->username;
-    //         }
-    //     }
+        return $this->response($response, json_decode($response->body())->channel);
+    }
 
-    //     $response = Request::post($this->api . 'channels.create')
-    //         ->body(array('name' => $this->name, 'members' => $members_id))
-    //         ->send();
+    /**
+     *
+     * @param string $roomId
+     * @param string $userId
+     * @return mixed
+     */
+    public function kickUserFromChannel(string $roomId, string $userId)
+    {
+        $response = $this->buildUrl('channels.kick', 'post', ['roomId' => $roomId, 'userId' => $userId]);
 
-    //     if ($response->code == 200 && isset($response->body->success) && $response->body->success == true) {
-    //         $this->id = $response->body->channel->_id;
-    //         return $response->body->channel;
-    //     } else {
-    //         echo($response->body->error . "\n");
-    //         return false;
-    //     }
-    // }
-    // /**
-    // * Creates a new channel.
-    // */
-    // public function members()
-    // {
-    //     // get user ids for members
-    //     $members_id = array();
-    //     foreach ($this->members as $member) {
-    //         if (is_string($member)) {
-    //             $members_id[] = $member;
-    //         } elseif (isset($member->username) && is_string($member->username)) {
-    //             $members_id[] = $member->username;
-    //         }
-    //     }
+        return $this->response($response, json_decode($response->body())->channel);
+    }
 
-    //     $response = Request::post($this->api . 'channels.create')
-    //         ->body(array('name' => $this->name, 'members' => $members_id))
-    //         ->send();
+    /**
+     *
+     * @param string $roomId
+     * @param string $userId
+     * @return mixed
+     */
+    public function addChannelOwner(string $roomId, string $userId)
+    {
+        $response = $this->buildUrl('channels.addOwner', 'post', ['roomId' => $roomId, 'userId' => $userId]);
 
-    //     if ($response->code == 200 && isset($response->body->success) && $response->body->success == true) {
-    //         $this->id = $response->body->channel->_id;
-    //         return $response->body->channel;
-    //     } else {
-    //         echo($response->body->error . "\n");
-    //         return false;
-    //     }
-    // }
-    // /**
-    // * Creates a new channel.
-    // */
-    // public function rename()
-    // {
-    //     // get user ids for members
-    //     $members_id = array();
-    //     foreach ($this->members as $member) {
-    //         if (is_string($member)) {
-    //             $members_id[] = $member;
-    //         } elseif (isset($member->username) && is_string($member->username)) {
-    //             $members_id[] = $member->username;
-    //         }
-    //     }
+        return $this->response($response, json_decode($response->body())->success);
+    }
 
-    //     $response = Request::post($this->api . 'channels.create')
-    //         ->body(array('name' => $this->name, 'members' => $members_id))
-    //         ->send();
+    /**
+     *
+     * @param string $roomId
+     * @param string $userId
+     * @return mixed
+     */
+    public function removeChannelOwner(string $roomId, string $userId)
+    {
+        $response = $this->buildUrl('channels.removeOwner', 'post', ['roomId' => $roomId, 'userId' => $userId]);
 
-    //     if ($response->code == 200 && isset($response->body->success) && $response->body->success == true) {
-    //         $this->id = $response->body->channel->_id;
-    //         return $response->body->channel;
-    //     } else {
-    //         echo($response->body->error . "\n");
-    //         return false;
-    //     }
-    // }
-    // /**
-    // * Creates a new channel.
-    // */
-    // public function setReadOnly()
-    // {
-    //     // get user ids for members
-    //     $members_id = array();
-    //     foreach ($this->members as $member) {
-    //         if (is_string($member)) {
-    //             $members_id[] = $member;
-    //         } elseif (isset($member->username) && is_string($member->username)) {
-    //             $members_id[] = $member->username;
-    //         }
-    //     }
+        return $this->response($response, json_decode($response->body())->success);
+    }
 
-    //     $response = Request::post($this->api . 'channels.create')
-    //         ->body(array('name' => $this->name, 'members' => $members_id))
-    //         ->send();
+    /**
+     *
+     * @param string $roomId
+     * @param string $userId
+     * @return mixed
+     */
+    public function addChannelLeader(string $roomId, string $userId)
+    {
+        $response = $this->buildUrl('channels.addLeader', 'post', ['roomId' => $roomId, 'userId' => $userId]);
 
-    //     if ($response->code == 200 && isset($response->body->success) && $response->body->success == true) {
-    //         $this->id = $response->body->channel->_id;
-    //         return $response->body->channel;
-    //     } else {
-    //         echo($response->body->error . "\n");
-    //         return false;
-    //     }
-    // }
+        return $this->response($response, json_decode($response->body())->success);
+    }
 
-    // /**
-    // * Retrieves the information about the channel.
-    // */
-    // public function info()
-    // {
-    //     $response = Request::get($this->api . 'channels.info?roomId=' . $this->id)->send();
+    /**
+     *
+     * @param string $roomId
+     * @param string $userId
+     * @return mixed
+     */
+    public function removeChannelLeader(string $roomId, string $userId)
+    {
+        $response = $this->buildUrl('channels.removeLeader', 'post', ['roomId' => $roomId, 'userId' => $userId]);
 
-    //     if ($response->code == 200 && isset($response->body->success) && $response->body->success == true) {
-    //         $this->id = $response->body->channel->_id;
-    //         return $response->body;
-    //     } else {
-    //         echo($response->body->error . "\n");
-    //         return false;
-    //     }
-    // }
+        return $this->response($response, json_decode($response->body())->success);
+    }
 
-    // /**
-    // * Post a message in this channel, as the logged-in user
-    // */
-    // public function postMessage($text)
-    // {
-    //     $message = is_string($text) ? array( 'text' => $text ) : $text;
-    //     if (!isset($message['attachments'])) {
-    //         $message['attachments'] = array();
-    //     }
+    /**
+     *
+     * @param string $name
+     * @param array $members
+     * @param bool $readOnly
+     * @return mixed
+     */
+    public function createChannel(string $name, array $members = [], bool $readOnly = false)
+    {
+        $response = $this->buildUrl('channels.create', 'post', [
+            'name' => $name,
+            'members' => $members,
+            'readOnly' => $readOnly
+            ]);
 
-    //     $response = Request::post($this->api . 'chat.postMessage')
-    //         ->body(array_merge(array('channel' => '#'.$this->name), $message))
-    //         ->send();
+        return $this->response($response, json_decode($response->body())->channel);
+    }
 
-    //     if ($response->code == 200 && isset($response->body->success) && $response->body->success == true) {
-    //         return true;
-    //     } else {
-    //         if (isset($response->body->error)) {
-    //             echo($response->body->error . "\n");
-    //         } elseif (isset($response->body->message)) {
-    //             echo($response->body->message . "\n");
-    //         }
-    //         return false;
-    //     }
-    // }
+    /**
+     *
+     * @param string $roomId
+     * @param string $name
+     * @return mixed
+     */
+    public function renameChannel(string $roomId, string $name)
+    {
+        $response = $this->buildUrl('channels.rename', 'post', [
+            'name' => $name,
+            'roomId' => $roomId,
+            ]);
 
-    // /**
-    // * Removes the channel from the user’s list of channels.
-    // */
-    // public function close()
-    // {
-    //     $response = Request::post($this->api . 'channels.close')
-    //         ->body(array('roomId' => $this->id))
-    //         ->send();
+        return $this->response($response, json_decode($response->body())->channel);
+    }
 
-    //     if ($response->code == 200 && isset($response->body->success) && $response->body->success == true) {
-    //         return true;
-    //     } else {
-    //         echo($response->body->error . "\n");
-    //         return false;
-    //     }
-    // }
+    /**
+     *
+     * @param string $roomId
+     * @param bool $readOnly
+     * @return mixed
+     */
+    public function setChannelReadOnly(string $roomId, bool $readOnly = true)
+    {
+        $response = $this->buildUrl('channels.setReadOnly', 'post', [
+            'readOnly' => $readOnly,
+            'roomId' => $roomId,
+            ]);
 
-    // /**
-    // * Delete the channel
-    // */
-    // public function delete()
-    // {
-    //     $response = Request::post($this->api . 'channels.delete')
-    //         ->body(array('roomId' => $this->id))
-    //         ->send();
-
-    //     if ($response->code == 200 && isset($response->body->success) && $response->body->success == true) {
-    //         return true;
-    //     } else {
-    //         echo($response->body->error . "\n");
-    //         return false;
-    //     }
-    // }
-
-    // /**
-    // * Removes a user from the channel.
-    // */
-    // public function kick($user)
-    // {
-    //     // get channel and user ids
-    //     $userId = is_string($user) ? $user : $user->id;
-
-    //     $response = Request::post($this->api . 'channels.kick')
-    //         ->body(array('roomId' => $this->id, 'userId' => $userId))
-    //         ->send();
-
-    //     if ($response->code == 200 && isset($response->body->success) && $response->body->success == true) {
-    //         return true;
-    //     } else {
-    //         echo($response->body->error . "\n");
-    //         return false;
-    //     }
-    // }
-
-    // /**
-    //  * Adds user to channel.
-    //  */
-    // public function invite($user)
-    // {
-    //     $userId = is_string($user) ? $user : $user->id;
-
-    //     $response = Request::post($this->api . 'channels.invite')
-    //         ->body(array('roomId' => $this->id, 'userId' => $userId))
-    //         ->send();
-
-    //     if ($response->code == 200 && isset($response->body->success) && $response->body->success == true) {
-    //         return true;
-    //     } else {
-    //         echo($response->body->error . "\n");
-    //         return false;
-    //     }
-    // }
-
-    // /**
-    //  * Adds owner to the channel.
-    //  */
-    // public function addOwner($user)
-    // {
-    //     $userId = is_string($user) ? $user : $user->id;
-
-    //     $response = Request::post($this->api . 'channels.addOwner')
-    //         ->body(array('roomId' => $this->id, 'userId' => $userId))
-    //         ->send();
-
-    //     if ($response->code == 200 && isset($response->body->success) && $response->body->success == true) {
-    //         return true;
-    //     } else {
-    //         echo($response->body->error . "\n");
-    //         return false;
-    //     }
-    // }
-
-    // /**
-    //  * Removes owner of the channel.
-    //  */
-    // public function removeOwner($user)
-    // {
-    //     $userId = is_string($user) ? $user : $user->id;
-
-    //     $response = Request::post($this->api . 'channels.removeOwner')
-    //         ->body(array('roomId' => $this->id, 'userId' => $userId))
-    //         ->send();
-
-    //     if ($response->code == 200 && isset($response->body->success) && $response->body->success == true) {
-    //         return true;
-    //     } else {
-    //         echo($response->body->error . "\n");
-    //         return false;
-    //     }
-    // }
-    // /**
-    //  * Adds owner to the channel.
-    //  */
-    // public function addLeader($user)
-    // {
-    //     $userId = is_string($user) ? $user : $user->id;
-
-    //     $response = Request::post($this->api . 'channels.addOwner')
-    //         ->body(array('roomId' => $this->id, 'userId' => $userId))
-    //         ->send();
-
-    //     if ($response->code == 200 && isset($response->body->success) && $response->body->success == true) {
-    //         return true;
-    //     } else {
-    //         echo($response->body->error . "\n");
-    //         return false;
-    //     }
-    // }
-
-    // /**
-    //  * Removes owner of the channel.
-    //  */
-    // public function removeleader($user)
-    // {
-    //     $userId = is_string($user) ? $user : $user->id;
-
-    //     $response = Request::post($this->api . 'channels.removeOwner')
-    //         ->body(array('roomId' => $this->id, 'userId' => $userId))
-    //         ->send();
-
-    //     if ($response->code == 200 && isset($response->body->success) && $response->body->success == true) {
-    //         return true;
-    //     } else {
-    //         echo($response->body->error . "\n");
-    //         return false;
-    //     }
-    // }
+        return $this->response($response, json_decode($response->body())->channel);
+    }
 }
