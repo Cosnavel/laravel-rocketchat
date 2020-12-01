@@ -1,0 +1,1 @@
+![logo](https://banners.beyondco.de/*Laravel-RocketChat*.png?theme=light&packageName=niclaskahlmeier%2Flaravel-rocketchat&pattern=bubbles&style=style_1&description=simple+wrapper+around+the+Rocket+Chat+Api&md=1&showWatermark=0&fontSize=125px&images=https%3A%2F%2Flaravel.com%2Fimg%2Flogomark.min.svg&widths=400&heights=auto)
