@@ -14,6 +14,7 @@ class RocketChatServiceProvider extends ServiceProvider
             ], 'rocketchat-config');
         }
     }
+
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/rocketchat.php', 'rocketchat');

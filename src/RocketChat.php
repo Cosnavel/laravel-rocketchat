@@ -9,8 +9,7 @@ class RocketChat
 {
     use Channel;
 
-
-    protected $rocketChatApiBaseUrl ;
+    protected $rocketChatApiBaseUrl;
     protected $rocketChatAuthToken;
     protected $rocketChatUserId;
 
@@ -24,16 +23,17 @@ class RocketChat
 
         $this->headers = [
             'X-Auth-Token' => $this->rocketChatAuthToken,
-            'X-User-Id' => $this->rocketChatUserId
+            'X-User-Id'    => $this->rocketChatUserId,
         ];
     }
 
     private function buildUrl(string $path = '', string $method = 'get', $params = false)
     {
         if ($params) {
-            return Http::withHeaders($this->headers)->$method($this->rocketChatApiBaseUrl . $path.'/', $params);
+            return Http::withHeaders($this->headers)->$method($this->rocketChatApiBaseUrl.$path.'/', $params);
         }
-        return Http::withHeaders($this->headers)->$method($this->rocketChatApiBaseUrl . $path);
+
+        return Http::withHeaders($this->headers)->$method($this->rocketChatApiBaseUrl.$path);
     }
 
     private function response($response, $return)

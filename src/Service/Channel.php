@@ -5,7 +5,6 @@ namespace NiclasKahlmeier\RocketChat\Service;
 trait Channel
 {
     /**
-     *
      * @return mixed
      */
     public function getChannelList()
@@ -16,8 +15,8 @@ trait Channel
     }
 
     /**
-     *
      * @param string $roomId
+     *
      * @return mixed
      */
     public function getChannelMembers(string $roomId)
@@ -28,8 +27,8 @@ trait Channel
     }
 
     /**
-     *
      * @param string $roomId
+     *
      * @return mixed
      */
     public function getChannelModerators(string $roomId)
@@ -40,8 +39,8 @@ trait Channel
     }
 
     /**
-     *
      * @param string $roomId
+     *
      * @return mixed
      */
     public function archiveChannel(string $roomId)
@@ -52,8 +51,8 @@ trait Channel
     }
 
     /**
-     *
      * @param string $roomId
+     *
      * @return mixed
      */
     public function deleteChannel(string $roomId)
@@ -64,8 +63,8 @@ trait Channel
     }
 
     /**
-     *
      * @param string $roomId
+     *
      * @return mixed
      */
     public function getChannelInfo(string $roomId)
@@ -76,9 +75,9 @@ trait Channel
     }
 
     /**
-     *
      * @param string $roomId
      * @param string $userId
+     *
      * @return mixed
      */
     public function kickUserFromChannel(string $roomId, string $userId)
@@ -89,9 +88,9 @@ trait Channel
     }
 
     /**
-     *
      * @param string $roomId
      * @param string $userId
+     *
      * @return mixed
      */
     public function addChannelOwner(string $roomId, string $userId)
@@ -102,9 +101,9 @@ trait Channel
     }
 
     /**
-     *
      * @param string $roomId
      * @param string $userId
+     *
      * @return mixed
      */
     public function removeChannelOwner(string $roomId, string $userId)
@@ -115,9 +114,9 @@ trait Channel
     }
 
     /**
-     *
      * @param string $roomId
      * @param string $userId
+     *
      * @return mixed
      */
     public function addChannelLeader(string $roomId, string $userId)
@@ -128,9 +127,9 @@ trait Channel
     }
 
     /**
-     *
      * @param string $roomId
      * @param string $userId
+     *
      * @return mixed
      */
     public function removeChannelLeader(string $roomId, string $userId)
@@ -141,51 +140,51 @@ trait Channel
     }
 
     /**
-     *
      * @param string $name
-     * @param array $members
-     * @param bool $readOnly
+     * @param array  $members
+     * @param bool   $readOnly
+     *
      * @return mixed
      */
     public function createChannel(string $name, array $members = [], bool $readOnly = false)
     {
         $response = $this->buildUrl('channels.create', 'post', [
-            'name' => $name,
-            'members' => $members,
-            'readOnly' => $readOnly
-            ]);
+            'name'     => $name,
+            'members'  => $members,
+            'readOnly' => $readOnly,
+        ]);
 
         return $this->response($response, json_decode($response->body())->channel);
     }
 
     /**
-     *
      * @param string $roomId
      * @param string $name
+     *
      * @return mixed
      */
     public function renameChannel(string $roomId, string $name)
     {
         $response = $this->buildUrl('channels.rename', 'post', [
-            'name' => $name,
+            'name'   => $name,
             'roomId' => $roomId,
-            ]);
+        ]);
 
         return $this->response($response, json_decode($response->body())->channel);
     }
 
     /**
-     *
      * @param string $roomId
-     * @param bool $readOnly
+     * @param bool   $readOnly
+     *
      * @return mixed
      */
     public function setChannelReadOnly(string $roomId, bool $readOnly = true)
     {
         $response = $this->buildUrl('channels.setReadOnly', 'post', [
             'readOnly' => $readOnly,
-            'roomId' => $roomId,
-            ]);
+            'roomId'   => $roomId,
+        ]);
 
         return $this->response($response, json_decode($response->body())->channel);
     }
