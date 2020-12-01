@@ -8,15 +8,21 @@ trait Channel
     {
         $response = $this->buildUrl('channels.list');
 
-        dd($response);
-        //return $this->response($response, collect($response->body()->channels));
+        return $this->response($response, json_decode($response->body())->channels);
     }
 
     public function getChannelMembers($roomId)
     {
         $response = $this->buildUrl('channels.members', 'get', ['roomId' => $roomId]);
 
-        return $this->response($response, collect($response->body->members));
+        return $this->response($response, json_decode($response->body())->members);
+    }
+
+    public function archiveChannel($roomId)
+    {
+        $response = $this->buildUrl('channels.members', 'get', ['roomId' => $roomId]);
+
+        return $this->response($response, json_decode($response->body())->members);
     }
 
 
