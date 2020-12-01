@@ -1,0 +1,29 @@
+{
+	"name": "niclaskahlmeier/laravel-rocketchat",
+	"description": "Rocket Chat API wrapper for Laravel",
+    "license": "MIT",
+    "type": "library",
+	"authors": [
+		{
+			"name": "Niclas Kahlmeier",
+			"email": "coding@niclaskahlmeier.de"
+		}
+	],
+	"minimum-stability": "dev",
+	"autoload": {
+		"psr-4": {
+			"NiclasKahlmeier\\RocketChat\\": "src/"
+		}
+	},
+	"require": {},
+	"extra": {
+		"laravel": {
+			"providers": [
+				"NiclasKahlmeier\\RocketChat\\RocketChatServiceProvider"
+			],
+			"aliases": {
+				"rocketchat": "NiclasKahlmeier\\RocketChat\\Facades\\RocketChat"
+			}
+		}
+	}
+}
