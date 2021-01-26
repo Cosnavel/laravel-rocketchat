@@ -86,6 +86,7 @@ trait Channel
 
         return $this->response($response, json_decode($response->body())->success);
     }
+
     /**
      * @param string $roomId
      * @param string $userId
