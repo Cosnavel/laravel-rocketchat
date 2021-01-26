@@ -1,6 +1,6 @@
 <?php
 
-namespace NiclasKahlmeier\RocketChat;
+namespace Cosnavel\RocketChat;
 
 use Illuminate\Support\ServiceProvider;
 

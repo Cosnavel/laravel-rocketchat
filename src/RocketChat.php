@@ -1,9 +1,9 @@
 <?php
 
-namespace NiclasKahlmeier\RocketChat;
+namespace Cosnavel\RocketChat;
 
 use Illuminate\Support\Facades\Http;
-use NiclasKahlmeier\RocketChat\Service\Channel;
+use Cosnavel\RocketChat\Service\Channel;
 
 class RocketChat
 {
@@ -45,9 +45,9 @@ class RocketChat
         }
     }
 
-    public static function __callStatic($method, $args)
-    {
-        var_dump($method);
-        // return $method($args);
-    }
+    // public static function __callStatic($method, $args)
+    // {
+    //     var_dump($method);
+    //     // return $method($args);
+    // }
 }

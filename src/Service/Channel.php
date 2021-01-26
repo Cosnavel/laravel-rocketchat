@@ -1,6 +1,6 @@
 <?php
 
-namespace NiclasKahlmeier\RocketChat\Service;
+namespace Cosnavel\RocketChat\Service;
 
 trait Channel
 {

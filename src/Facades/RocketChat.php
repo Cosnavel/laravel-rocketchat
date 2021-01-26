@@ -1,6 +1,6 @@
 <?php
 
-namespace NiclasKahlmeier\RocketChat\Facades;
+namespace Cosnavel\RocketChat\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

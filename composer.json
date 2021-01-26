@@ -1,5 +1,5 @@
 {
-	"name": "niclaskahlmeier/laravel-rocketchat",
+	"name": "cosnavel/laravel-rocketchat",
 	"description": "Rocket Chat API wrapper for Laravel",
     "license": "MIT",
     "type": "library",
@@ -12,17 +12,17 @@
 	"minimum-stability": "dev",
 	"autoload": {
 		"psr-4": {
-			"NiclasKahlmeier\\RocketChat\\": "src/"
+			"Cosnavel\\RocketChat\\": "src/"
 		}
 	},
 	"require": {},
 	"extra": {
 		"laravel": {
 			"providers": [
-				"NiclasKahlmeier\\RocketChat\\RocketChatServiceProvider"
+				"Cosnavel\\RocketChat\\RocketChatServiceProvider"
 			],
 			"aliases": {
-				"rocketchat": "NiclasKahlmeier\\RocketChat\\Facades\\RocketChat"
+				"rocketchat": "Cosnavel\\RocketChat\\Facades\\RocketChat"
 			}
 		}
 	}
