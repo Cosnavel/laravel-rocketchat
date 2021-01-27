@@ -4,7 +4,7 @@ namespace Cosnavel\RocketChat\Service;
 
 trait User
 {
-    public function createUser(string $email, string $name, string $password, sting $username, array $roles = ['user'], bool $requirePasswordChange = true)
+    public function createUser(string $email, string $name, string $password, string $username, array $roles = ['user'], bool $requirePasswordChange = true)
     {
         $response = $this->buildUrl('users.create', 'post', ['email' => $email, 'name' => $name, 'password' => $password, 'username' => $username, 'roles' => $roles, 'requirePasswordChange' => $requirePasswordChange]);
 

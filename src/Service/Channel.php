@@ -188,4 +188,20 @@ trait Channel
 
         return $this->response($response, json_decode($response->body())->channel);
     }
+
+    /**
+     *
+     * @param string $roomId
+     * @param string $announcement
+     * @return bool
+     */
+    public function setChannelAnnouncement(string $roomId, string $announcement):bool
+    {
+        $response = $this->buildUrl('channels.setAnnouncement', 'post', [
+            'announcement' => $announcement,
+            'roomId'   => $roomId,
+        ]);
+
+        return $this->response($response, json_decode($response->body())->success);
+    }
 }
