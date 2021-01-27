@@ -2,202 +2,40 @@
 
 namespace Cosnavel\RocketChat\Service;
 
-trait Channel
+trait User
 {
-    /**
-     * @return mixed
-     */
-    public function getChannelList()
+    public function createUser(string $email, string $name, string $password, sting $username, array $roles = ['user'], bool $requirePasswordChange = true)
     {
-        $response = $this->buildUrl('channels.list');
+        $response = $this->buildUrl('users.create', 'post', ['email' => $email, 'name' => $name, 'password' => $password, 'username' => $username, 'roles' => $roles, 'requirePasswordChange' => $requirePasswordChange]);
 
-        return $this->response($response, json_decode($response->body())->channels);
+        return $this->response($response, json_decode($response->body()));
     }
 
-    /**
-     * @param string $roomId
-     *
-     * @return mixed
-     */
-    public function getChannelMembers(string $roomId)
+    public function deleteUser(string $username, bool $confirmRelinquish = true)
     {
-        $response = $this->buildUrl('channels.members', 'get', ['roomId' => $roomId]);
-
-        return $this->response($response, json_decode($response->body())->members);
-    }
-
-    /**
-     * @param string $roomId
-     *
-     * @return mixed
-     */
-    public function getChannelModerators(string $roomId)
-    {
-        $response = $this->buildUrl('channels.moderators', 'get', ['roomId' => $roomId]);
-
-        return $this->response($response, json_decode($response->body())->moderators);
-    }
-
-    /**
-     * @param string $roomId
-     *
-     * @return mixed
-     */
-    public function archiveChannel(string $roomId)
-    {
-        $response = $this->buildUrl('channels.archive', 'post', ['roomId' => $roomId]);
+        $response = $this->buildUrl('users.delete', 'post', ['username' => $username, 'confirmRelinquish' => $confirmRelinquish]);
 
         return $this->response($response, json_decode($response->body())->success);
     }
 
-    /**
-     * @param string $roomId
-     *
-     * @return mixed
-     */
-    public function deleteChannel(string $roomId)
+    public function getUserList()
     {
-        $response = $this->buildUrl('channels.delete', 'post', ['roomId' => $roomId]);
+        $response = $this->buildUrl('users.list', 'get');
+
+        return $this->response($response, json_decode($response->body())->users);
+    }
+
+    public function getUserInfo(string $username)
+    {
+        $response = $this->buildUrl('users.info', 'get', ['username' => $username]);
+
+        return $this->response($response, json_decode($response->body())->user);
+    }
+
+    public function resetUserAvatar(string $username)
+    {
+        $response = $this->buildUrl('users.resetAvatar', 'post', ['username' => $username]);
 
         return $this->response($response, json_decode($response->body())->success);
-    }
-
-    /**
-     * @param string $roomId
-     *
-     * @return mixed
-     */
-    public function getChannelInfo(string $roomId)
-    {
-        $response = $this->buildUrl('channels.info', 'get', ['roomId' => $roomId]);
-
-        return $this->response($response, json_decode($response->body())->channel);
-    }
-
-    /**
-     * @param string $roomId
-     * @param string $userId
-     *
-     * @return mixed
-     */
-    public function kickUserFromChannel(string $roomId, string $userId)
-    {
-        $response = $this->buildUrl('channels.kick', 'post', ['roomId' => $roomId, 'userId' => $userId]);
-
-        return $this->response($response, json_decode($response->body())->success);
-    }
-    /**
-     * @param string $roomId
-     * @param string $userId
-     *
-     * @return mixed
-     */
-    public function addUserToChannel(string $roomId, string $userId)
-    {
-        $response = $this->buildUrl('channels.invite', 'post', ['roomId' => $roomId, 'userId' => $userId]);
-
-        return $this->response($response, json_decode($response->body())->success);
-    }
-
-    /**
-     * @param string $roomId
-     * @param string $userId
-     *
-     * @return mixed
-     */
-    public function addChannelOwner(string $roomId, string $userId)
-    {
-        $response = $this->buildUrl('channels.addOwner', 'post', ['roomId' => $roomId, 'userId' => $userId]);
-
-        return $this->response($response, json_decode($response->body())->success);
-    }
-
-    /**
-     * @param string $roomId
-     * @param string $userId
-     *
-     * @return mixed
-     */
-    public function removeChannelOwner(string $roomId, string $userId)
-    {
-        $response = $this->buildUrl('channels.removeOwner', 'post', ['roomId' => $roomId, 'userId' => $userId]);
-
-        return $this->response($response, json_decode($response->body())->success);
-    }
-
-    /**
-     * @param string $roomId
-     * @param string $userId
-     *
-     * @return mixed
-     */
-    public function addChannelLeader(string $roomId, string $userId)
-    {
-        $response = $this->buildUrl('channels.addLeader', 'post', ['roomId' => $roomId, 'userId' => $userId]);
-
-        return $this->response($response, json_decode($response->body())->success);
-    }
-
-    /**
-     * @param string $roomId
-     * @param string $userId
-     *
-     * @return mixed
-     */
-    public function removeChannelLeader(string $roomId, string $userId)
-    {
-        $response = $this->buildUrl('channels.removeLeader', 'post', ['roomId' => $roomId, 'userId' => $userId]);
-
-        return $this->response($response, json_decode($response->body())->success);
-    }
-
-    /**
-     * @param string $name
-     * @param array  $members
-     * @param bool   $readOnly
-     *
-     * @return mixed
-     */
-    public function createChannel(string $name, array $members = [], bool $readOnly = false)
-    {
-        $response = $this->buildUrl('channels.create', 'post', [
-            'name'     => $name,
-            'members'  => $members,
-            'readOnly' => $readOnly,
-        ]);
-
-        return $this->response($response, json_decode($response->body())->channel);
-    }
-
-    /**
-     * @param string $roomId
-     * @param string $name
-     *
-     * @return mixed
-     */
-    public function renameChannel(string $roomId, string $name)
-    {
-        $response = $this->buildUrl('channels.rename', 'post', [
-            'name'   => $name,
-            'roomId' => $roomId,
-        ]);
-
-        return $this->response($response, json_decode($response->body())->channel);
-    }
-
-    /**
-     * @param string $roomId
-     * @param bool   $readOnly
-     *
-     * @return mixed
-     */
-    public function setChannelReadOnly(string $roomId, bool $readOnly = true)
-    {
-        $response = $this->buildUrl('channels.setReadOnly', 'post', [
-            'readOnly' => $readOnly,
-            'roomId'   => $roomId,
-        ]);
-
-        return $this->response($response, json_decode($response->body())->channel);
     }
 }
