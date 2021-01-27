@@ -2,8 +2,8 @@
 
 namespace Cosnavel\RocketChat;
 
-use Illuminate\Support\Facades\Http;
 use Cosnavel\RocketChat\Service\Channel;
+use Illuminate\Support\Facades\Http;
 
 class RocketChat
 {

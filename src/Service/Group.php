@@ -17,6 +17,7 @@ trait Group
 
         return $this->response($response, json_decode($response->body())->files);
     }
+
     public function getPrivateChannels()
     {
         $response = $this->buildUrl('groups.listAll', 'get');
@@ -24,11 +25,11 @@ trait Group
         return $this->response($response, json_decode($response->body())->groups);
     }
 
-    public function setPrivateChannelAnnouncement(string $roomId, string $announcement):bool
+    public function setPrivateChannelAnnouncement(string $roomId, string $announcement): bool
     {
         $response = $this->buildUrl('groups.setAnnouncement', 'post', [
             'announcement' => $announcement,
-            'roomId'   => $roomId,
+            'roomId'       => $roomId,
         ]);
 
         return $this->response($response, json_decode($response->body())->success);

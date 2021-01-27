@@ -11,14 +11,12 @@ trait Role
         return $this->response($response, json_decode($response->body())->roles);
     }
 
-
     public function addUserToRole(string $role, string $username)
     {
         $response = $this->buildUrl('roles.addUserToRole', 'post', ['role' => $role, 'username' => $username]);
 
         return $this->response($response, json_decode($response->body())->success);
     }
-
 
     public function getUsersInRole(string $role)
     {

@@ -190,16 +190,16 @@ trait Channel
     }
 
     /**
-     *
      * @param string $roomId
      * @param string $announcement
+     *
      * @return bool
      */
-    public function setChannelAnnouncement(string $roomId, string $announcement):bool
+    public function setChannelAnnouncement(string $roomId, string $announcement): bool
     {
         $response = $this->buildUrl('channels.setAnnouncement', 'post', [
             'announcement' => $announcement,
-            'roomId'   => $roomId,
+            'roomId'       => $roomId,
         ]);
 
         return $this->response($response, json_decode($response->body())->success);

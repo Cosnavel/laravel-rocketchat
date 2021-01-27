@@ -10,9 +10,8 @@ trait Invite
 
         $decoded = json_decode($response->body());
 
-        return $this->response($response, (object)['url' => $decoded->url, 'expires' => $decoded->expires, 'success' => $decoded->success]);
+        return $this->response($response, (object) ['url' => $decoded->url, 'expires' => $decoded->expires, 'success' => $decoded->success]);
     }
-
 
     public function deleteInvite(string $id)
     {
@@ -20,7 +19,6 @@ trait Invite
 
         return $this->response($response, json_decode($response->body()));
     }
-
 
     public function getInvites()
     {
