@@ -6,6 +6,11 @@ use Illuminate\Support\ServiceProvider;
 
 class RocketChatServiceProvider extends ServiceProvider
 {
+    /**
+     *
+     * @return void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function boot()
     {
         if ($this->app->runningInConsole()) {
@@ -15,6 +20,10 @@ class RocketChatServiceProvider extends ServiceProvider
         }
     }
 
+    /**
+     *
+     * @return void
+     */
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/rocketchat.php', 'rocketchat');

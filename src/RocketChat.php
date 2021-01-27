@@ -2,12 +2,26 @@
 
 namespace Cosnavel\RocketChat;
 
-use Cosnavel\RocketChat\Service\Channel;
 use Illuminate\Support\Facades\Http;
+use Cosnavel\RocketChat\Service\Auth;
+use Cosnavel\RocketChat\Service\Misc;
+use Cosnavel\RocketChat\Service\Role;
+use Cosnavel\RocketChat\Service\Room;
+use Cosnavel\RocketChat\Service\User;
+use Cosnavel\RocketChat\Service\Group;
+use Cosnavel\RocketChat\Service\Invite;
+use Cosnavel\RocketChat\Service\Channel;
 
 class RocketChat
 {
+    use Auth;
     use Channel;
+    use Group;
+    use Invite;
+    use Misc;
+    use Role;
+    use Room;
+    use User;
 
     protected $rocketChatApiBaseUrl;
     protected $rocketChatAuthToken;
