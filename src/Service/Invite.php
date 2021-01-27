@@ -5,10 +5,10 @@ namespace Cosnavel\RocketChat\Service;
 trait Invite
 {
     /**
-     *
      * @param string $roomId
      * @param string $validDays
      * @param string $maxUses
+     *
      * @return mixed
      */
     public function findOrCreateInvite(string $roomId, string $validDays, string $maxUses)
@@ -21,8 +21,8 @@ trait Invite
     }
 
     /**
-     *
      * @param string $id
+     *
      * @return mixed
      */
     public function deleteInvite(string $id)
@@ -33,7 +33,6 @@ trait Invite
     }
 
     /**
-     *
      * @return mixed
      */
     public function getInvites()

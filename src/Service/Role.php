@@ -5,7 +5,6 @@ namespace Cosnavel\RocketChat\Service;
 trait Role
 {
     /**
-     *
      * @return mixed
      */
     public function getRoles()
@@ -16,9 +15,9 @@ trait Role
     }
 
     /**
-     *
      * @param string $role
      * @param string $username
+     *
      * @return mixed
      */
     public function addUserToRole(string $role, string $username)
@@ -29,8 +28,8 @@ trait Role
     }
 
     /**
-     *
      * @param string $role
+     *
      * @return mixed
      */
     public function getUsersInRole(string $role)

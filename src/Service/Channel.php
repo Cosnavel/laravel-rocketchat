@@ -88,9 +88,9 @@ trait Channel
     }
 
     /**
-     *
      * @param string $roomId
      * @param string $userId
+     *
      * @return mixed
      */
     public function addUserToChannel(string $roomId, string $userId)

@@ -7,11 +7,11 @@ use Illuminate\Support\Carbon;
 trait Room
 {
     /**
-     *
      * @param string $roomId
      * @param string $latest
      * @param string $oldest
-     * @param bool $excludePinned
+     * @param bool   $excludePinned
+     *
      * @return mixed
      */
     public function cleanRoomHistory(string $roomId, string $latest = Carbon::now(), string $oldest = Carbon::now()->subYear(), bool $excludePinned = false)
@@ -22,8 +22,8 @@ trait Room
     }
 
     /**
-     *
      * @param string|null $name
+     *
      * @return mixed
      */
     public function getAllRooms(string $name = null)

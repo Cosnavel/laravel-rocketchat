@@ -5,8 +5,8 @@ namespace Cosnavel\RocketChat\Service;
 trait Group
 {
     /**
-     *
      * @param string $roomId
+     *
      * @return mixed
      */
     public function deletePrivateChannel(string $roomId)
@@ -17,8 +17,8 @@ trait Group
     }
 
     /**
-     *
      * @param string $roomId
+     *
      * @return mixed
      */
     public function getPrivateChannelFiles(string $roomId)
@@ -29,7 +29,6 @@ trait Group
     }
 
     /**
-     *
      * @return mixed
      */
     public function getPrivateChannels()
@@ -40,9 +39,9 @@ trait Group
     }
 
     /**
-     *
      * @param string $roomId
      * @param string $announcement
+     *
      * @return bool
      */
     public function setPrivateChannelAnnouncement(string $roomId, string $announcement): bool
@@ -56,9 +55,9 @@ trait Group
     }
 
     /**
-     *
      * @param string $roomId
-     * @param bool $readOnly
+     * @param bool   $readOnly
+     *
      * @return mixed
      */
     public function setPrivateChannelReadOnly(string $roomId, bool $readOnly = true)

@@ -7,9 +7,9 @@ use Illuminate\Support\ServiceProvider;
 class RocketChatServiceProvider extends ServiceProvider
 {
     /**
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      *
      * @return void
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function boot()
     {
@@ -21,7 +21,6 @@ class RocketChatServiceProvider extends ServiceProvider
     }
 
     /**
-     *
      * @return void
      */
     public function register()

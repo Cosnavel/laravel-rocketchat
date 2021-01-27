@@ -5,8 +5,8 @@ namespace Cosnavel\RocketChat\Service;
 trait Misc
 {
     /**
-     *
      * @param bool $refresh
+     *
      * @return mixed
      */
     public function getStatistics(bool $refresh = true)

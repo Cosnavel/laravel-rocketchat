@@ -5,13 +5,13 @@ namespace Cosnavel\RocketChat\Service;
 trait User
 {
     /**
-     *
      * @param string $email
      * @param string $name
      * @param string $password
      * @param string $username
-     * @param array $roles
-     * @param bool $requirePasswordChange
+     * @param array  $roles
+     * @param bool   $requirePasswordChange
+     *
      * @return mixed
      */
     public function createUser(string $email, string $name, string $password, string $username, array $roles = ['user'], bool $requirePasswordChange = true)
@@ -22,9 +22,9 @@ trait User
     }
 
     /**
-     *
      * @param string $username
-     * @param bool $confirmRelinquish
+     * @param bool   $confirmRelinquish
+     *
      * @return mixed
      */
     public function deleteUser(string $username, bool $confirmRelinquish = true)
@@ -35,7 +35,6 @@ trait User
     }
 
     /**
-     *
      * @return mixed
      */
     public function getUserList()
@@ -46,8 +45,8 @@ trait User
     }
 
     /**
-     *
      * @param string $username
+     *
      * @return mixed
      */
     public function getUserInfo(string $username)
@@ -58,8 +57,8 @@ trait User
     }
 
     /**
-     *
      * @param string $username
+     *
      * @return mixed
      */
     public function resetUserAvatar(string $username)

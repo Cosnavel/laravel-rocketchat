@@ -2,15 +2,15 @@
 
 namespace Cosnavel\RocketChat;
 
-use Illuminate\Support\Facades\Http;
 use Cosnavel\RocketChat\Service\Auth;
+use Cosnavel\RocketChat\Service\Channel;
+use Cosnavel\RocketChat\Service\Group;
+use Cosnavel\RocketChat\Service\Invite;
 use Cosnavel\RocketChat\Service\Misc;
 use Cosnavel\RocketChat\Service\Role;
 use Cosnavel\RocketChat\Service\Room;
 use Cosnavel\RocketChat\Service\User;
-use Cosnavel\RocketChat\Service\Group;
-use Cosnavel\RocketChat\Service\Invite;
-use Cosnavel\RocketChat\Service\Channel;
+use Illuminate\Support\Facades\Http;
 
 class RocketChat
 {
@@ -30,10 +30,10 @@ class RocketChat
     protected $headers;
 
     /**
-     *
      * @param string $rocketChatApiBaseUrl
      * @param string $rocketChatAuthToken
      * @param string $rocketChatUserId
+     *
      * @return void
      */
     public function __construct(string $rocketChatApiBaseUrl, string $rocketChatAuthToken, string $rocketChatUserId)
@@ -49,10 +49,10 @@ class RocketChat
     }
 
     /**
-     *
      * @param string $path
      * @param string $method
-     * @param bool $params
+     * @param bool   $params
+     *
      * @return mixed
      */
     private function buildUrl(string $path = '', string $method = 'get', $params = false)
@@ -65,9 +65,9 @@ class RocketChat
     }
 
     /**
-     *
      * @param mixed $response
      * @param mixed $return
+     *
      * @return mixed
      */
     private function response($response, $return)
