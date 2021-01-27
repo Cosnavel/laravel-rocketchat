@@ -4,6 +4,14 @@ namespace Cosnavel\RocketChat\Service;
 
 trait Auth
 {
+    /**
+     *
+     * @param string $username
+     * @param string $password
+     * @param bool $setEnv
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function getApiTokens(string $username, string $password, bool $setEnv = false)
     {
         $response = $this->buildUrl('login', 'post', ['username' => $username, 'password' => $password]);

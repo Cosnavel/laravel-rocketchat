@@ -87,6 +87,12 @@ trait Channel
         return $this->response($response, json_decode($response->body())->channel);
     }
 
+    /**
+     *
+     * @param string $roomId
+     * @param string $userId
+     * @return mixed
+     */
     public function addUserToChannel(string $roomId, string $userId)
     {
         $response = $this->buildUrl('channels.invite', 'post', ['roomId' => $roomId, 'userId' => $userId]);

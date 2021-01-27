@@ -4,6 +4,11 @@ namespace Cosnavel\RocketChat\Service;
 
 trait Misc
 {
+    /**
+     *
+     * @param bool $refresh
+     * @return mixed
+     */
     public function getStatistics(bool $refresh = true)
     {
         $response = $this->buildUrl('statistics', 'get', ['refresh' => $refresh]);
