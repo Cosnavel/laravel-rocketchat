@@ -2,8 +2,6 @@
 
 namespace Cosnavel\RocketChat\Service;
 
-use Illuminate\Support\Carbon;
-
 trait Room
 {
     /**
@@ -14,8 +12,11 @@ trait Room
      *
      * @return mixed
      */
-    public function cleanRoomHistory(string $roomId, string $latest = Carbon::now(), string $oldest = Carbon::now()->subYear(), bool $excludePinned = false)
+    public function cleanRoomHistory(string $roomId, string $latest = null, string $oldest = null, bool $excludePinned = false)
     {
+        $latest = $latest ?? now()->toDateTimeString();
+        $oldest = $oldest ?? now()->subYear()->toDateTimeString();
+
         $response = $this->buildUrl('rooms.cleanHistory', 'post', ['roomId' => $roomId, 'latest' => $latest, 'oldest' => $oldest, 'excludePinned' => $excludePinned]);
 
         return $this->response($response, json_decode($response->body())->success);
