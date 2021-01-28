@@ -72,7 +72,7 @@ class RocketChat
      */
     private function response($response, $return)
     {
-        if ($response->status() == 200 && json_decode($response->body())->success) {
+        if ($response->status() == 200) {
             return $return;
         } else {
             return json_decode($response->body())->error;

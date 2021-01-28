@@ -22,7 +22,7 @@ trait Role
      */
     public function addUserToRole(string $role, string $username)
     {
-        $response = $this->buildUrl('roles.addUserToRole', 'post', ['role' => $role, 'username' => $username]);
+        $response = $this->buildUrl('roles.addUserToRole', 'post', ['roleName' => $role, 'username' => $username]);
 
         return $this->response($response, json_decode($response->body())->success);
     }

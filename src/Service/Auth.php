@@ -18,14 +18,18 @@ trait Auth
 
         $decoded = json_decode($response->body());
 
-        $authToken = $decoded->data->authToken;
-        $userId = $decoded->data->userId;
+        $authToken = null;
+        $userId = null;
+        if (isset($decoded->data)) {
+            $authToken = $decoded->data->authToken;
+            $userId = $decoded->data->userId;
+        }
 
         if ($setEnv) {
             config(['rocketchat.ROCKET_CHAT_AUTH_TOKEN' => $authToken]);
             config(['rocketchat.ROCKET_CHAT_USER_ID' => $userId]);
         }
 
-        return $this->response($response, (object) ['success' => $decoded->success, 'authToken' => $authToken, 'userId' => $userId]);
+        return $this->response($response, (object) ['status' => $decoded->status, 'authToken' => $authToken, 'userId' => $userId]);
     }
 }
