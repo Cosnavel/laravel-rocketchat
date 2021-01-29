@@ -27,6 +27,5 @@
 		}
 	},
 	"require-dev": {
-		"friendsofphp/php-cs-fixer": "9999999-dev"
 	}
 }
