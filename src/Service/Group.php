@@ -9,11 +9,11 @@ trait Group
      *
      * @return mixed
      */
-    public function deletePrivateChannel(string $roomId)
+    public static function deletePrivateChannel(string $roomId)
     {
-        $response = $this->buildUrl('groups.delete', 'POST', ['roomId' => $roomId]);
+        $response = (new self)->buildUrl('groups.delete', 'POST', ['roomId' => $roomId]);
 
-        return $this->response($response, json_decode($response->body())->success);
+        return (new self)->response($response, json_decode($response->body())->success);
     }
 
     /**
@@ -21,21 +21,21 @@ trait Group
      *
      * @return mixed
      */
-    public function getPrivateChannelFiles(string $roomId)
+    public static function getPrivateChannelFiles(string $roomId)
     {
-        $response = $this->buildUrl('groups.files', 'get', ['roomId' => $roomId]);
+        $response = (new self)->buildUrl('groups.files', 'get', ['roomId' => $roomId]);
 
-        return $this->response($response, json_decode($response->body())->files);
+        return (new self)->response($response, json_decode($response->body())->files);
     }
 
     /**
      * @return mixed
      */
-    public function getPrivateChannels()
+    public static function getPrivateChannels()
     {
-        $response = $this->buildUrl('groups.listAll', 'get');
+        $response = (new self)->buildUrl('groups.listAll', 'get');
 
-        return $this->response($response, json_decode($response->body())->groups);
+        return (new self)->response($response, json_decode($response->body())->groups);
     }
 
     /**
@@ -44,14 +44,14 @@ trait Group
      *
      * @return bool
      */
-    public function setPrivateChannelAnnouncement(string $roomId, string $announcement): bool
+    public static function setPrivateChannelAnnouncement(string $roomId, string $announcement): bool
     {
-        $response = $this->buildUrl('groups.setAnnouncement', 'post', [
+        $response = (new self)->buildUrl('groups.setAnnouncement', 'post', [
             'announcement' => $announcement,
             'roomId'       => $roomId,
         ]);
 
-        return $this->response($response, json_decode($response->body())->success);
+        return (new self)->response($response, json_decode($response->body())->success);
     }
 
     /**
@@ -60,13 +60,13 @@ trait Group
      *
      * @return mixed
      */
-    public function setPrivateChannelReadOnly(string $roomId, bool $readOnly = true)
+    public static function setPrivateChannelReadOnly(string $roomId, bool $readOnly = true)
     {
-        $response = $this->buildUrl('groups.setReadOnly', 'post', [
+        $response = (new self)->buildUrl('groups.setReadOnly', 'post', [
             'readOnly' => $readOnly,
             'roomId'   => $roomId,
         ]);
 
-        return $this->response($response, json_decode($response->body())->group);
+        return (new self)->response($response, json_decode($response->body())->group);
     }
 }

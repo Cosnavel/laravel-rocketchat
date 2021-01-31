@@ -7,11 +7,11 @@ trait Channel
     /**
      * @return mixed
      */
-    public function getChannelList()
+    public static function getChannelList()
     {
-        $response = $this->buildUrl('channels.list');
+        $response = (new self)->buildUrl('channels.list');
 
-        return $this->response($response, json_decode($response->body())->channels);
+        return (new self)->response($response, json_decode($response->body())->channels);
     }
 
     /**
@@ -19,11 +19,11 @@ trait Channel
      *
      * @return mixed
      */
-    public function getChannelMembers(string $roomId)
+    public static function getChannelMembers(string $roomId)
     {
-        $response = $this->buildUrl('channels.members', 'get', ['roomId' => $roomId]);
+        $response = (new self)->buildUrl('channels.members', 'get', ['roomId' => $roomId]);
 
-        return $this->response($response, json_decode($response->body())->members);
+        return (new self)->response($response, json_decode($response->body())->members);
     }
 
     /**
@@ -31,11 +31,11 @@ trait Channel
      *
      * @return mixed
      */
-    public function getChannelModerators(string $roomId)
+    public static function getChannelModerators(string $roomId)
     {
-        $response = $this->buildUrl('channels.moderators', 'get', ['roomId' => $roomId]);
+        $response = (new self)->buildUrl('channels.moderators', 'get', ['roomId' => $roomId]);
 
-        return $this->response($response, json_decode($response->body())->moderators);
+        return (new self)->response($response, json_decode($response->body())->moderators);
     }
 
     /**
@@ -43,11 +43,11 @@ trait Channel
      *
      * @return mixed
      */
-    public function archiveChannel(string $roomId)
+    public static function archiveChannel(string $roomId)
     {
-        $response = $this->buildUrl('channels.archive', 'post', ['roomId' => $roomId]);
+        $response = (new self)->buildUrl('channels.archive', 'post', ['roomId' => $roomId]);
 
-        return $this->response($response, json_decode($response->body())->success);
+        return (new self)->response($response, json_decode($response->body())->success);
     }
 
     /**
@@ -55,11 +55,11 @@ trait Channel
      *
      * @return mixed
      */
-    public function deleteChannel(string $roomId)
+    public static function deleteChannel(string $roomId)
     {
-        $response = $this->buildUrl('channels.delete', 'post', ['roomId' => $roomId]);
+        $response = (new self)->buildUrl('channels.delete', 'post', ['roomId' => $roomId]);
 
-        return $this->response($response, json_decode($response->body())->success);
+        return (new self)->response($response, json_decode($response->body())->success);
     }
 
     /**
@@ -67,24 +67,11 @@ trait Channel
      *
      * @return mixed
      */
-    public function getChannelInfo(string $roomId)
+    public static function getChannelInfo(string $roomId)
     {
-        $response = $this->buildUrl('channels.info', 'get', ['roomId' => $roomId]);
+        $response = (new self)->buildUrl('channels.info', 'get', ['roomId' => $roomId]);
 
-        return $this->response($response, json_decode($response->body())->channel);
-    }
-
-    /**
-     * @param string $roomId
-     * @param string $userId
-     *
-     * @return mixed
-     */
-    public function kickUserFromChannel(string $roomId, string $userId)
-    {
-        $response = $this->buildUrl('channels.kick', 'post', ['roomId' => $roomId, 'userId' => $userId]);
-
-        return $this->response($response, json_decode($response->body())->channel);
+        return (new self)->response($response, json_decode($response->body())->channel);
     }
 
     /**
@@ -93,11 +80,11 @@ trait Channel
      *
      * @return mixed
      */
-    public function addUserToChannel(string $roomId, string $userId)
+    public static function kickUserFromChannel(string $roomId, string $userId)
     {
-        $response = $this->buildUrl('channels.invite', 'post', ['roomId' => $roomId, 'userId' => $userId]);
+        $response = (new self)->buildUrl('channels.kick', 'post', ['roomId' => $roomId, 'userId' => $userId]);
 
-        return $this->response($response, json_decode($response->body())->success);
+        return (new self)->response($response, json_decode($response->body())->channel);
     }
 
     /**
@@ -106,11 +93,11 @@ trait Channel
      *
      * @return mixed
      */
-    public function addChannelOwner(string $roomId, string $userId)
+    public static function addUserToChannel(string $roomId, string $userId)
     {
-        $response = $this->buildUrl('channels.addOwner', 'post', ['roomId' => $roomId, 'userId' => $userId]);
+        $response = (new self)->buildUrl('channels.invite', 'post', ['roomId' => $roomId, 'userId' => $userId]);
 
-        return $this->response($response, json_decode($response->body())->success);
+        return (new self)->response($response, json_decode($response->body())->success);
     }
 
     /**
@@ -119,11 +106,11 @@ trait Channel
      *
      * @return mixed
      */
-    public function removeChannelOwner(string $roomId, string $userId)
+    public static function addChannelOwner(string $roomId, string $userId)
     {
-        $response = $this->buildUrl('channels.removeOwner', 'post', ['roomId' => $roomId, 'userId' => $userId]);
+        $response = (new self)->buildUrl('channels.addOwner', 'post', ['roomId' => $roomId, 'userId' => $userId]);
 
-        return $this->response($response, json_decode($response->body())->success);
+        return (new self)->response($response, json_decode($response->body())->success);
     }
 
     /**
@@ -132,11 +119,11 @@ trait Channel
      *
      * @return mixed
      */
-    public function addChannelLeader(string $roomId, string $userId)
+    public static function removeChannelOwner(string $roomId, string $userId)
     {
-        $response = $this->buildUrl('channels.addLeader', 'post', ['roomId' => $roomId, 'userId' => $userId]);
+        $response = (new self)->buildUrl('channels.removeOwner', 'post', ['roomId' => $roomId, 'userId' => $userId]);
 
-        return $this->response($response, json_decode($response->body())->success);
+        return (new self)->response($response, json_decode($response->body())->success);
     }
 
     /**
@@ -145,11 +132,24 @@ trait Channel
      *
      * @return mixed
      */
-    public function removeChannelLeader(string $roomId, string $userId)
+    public static function addChannelLeader(string $roomId, string $userId)
     {
-        $response = $this->buildUrl('channels.removeLeader', 'post', ['roomId' => $roomId, 'userId' => $userId]);
+        $response = (new self)->buildUrl('channels.addLeader', 'post', ['roomId' => $roomId, 'userId' => $userId]);
 
-        return $this->response($response, json_decode($response->body())->success);
+        return (new self)->response($response, json_decode($response->body())->success);
+    }
+
+    /**
+     * @param string $roomId
+     * @param string $userId
+     *
+     * @return mixed
+     */
+    public static function removeChannelLeader(string $roomId, string $userId)
+    {
+        $response = (new self)->buildUrl('channels.removeLeader', 'post', ['roomId' => $roomId, 'userId' => $userId]);
+
+        return (new self)->response($response, json_decode($response->body())->success);
     }
 
     /**
@@ -159,15 +159,15 @@ trait Channel
      *
      * @return mixed
      */
-    public function createChannel(string $name, array $members = [], bool $readOnly = false)
+    public static function createChannel(string $name, array $members = [], bool $readOnly = false)
     {
-        $response = $this->buildUrl('channels.create', 'post', [
+        $response = (new self)->buildUrl('channels.create', 'post', [
             'name'     => $name,
             'members'  => $members,
             'readOnly' => $readOnly,
         ]);
 
-        return $this->response($response, json_decode($response->body())->channel);
+        return (new self)->response($response, json_decode($response->body())->channel);
     }
 
     /**
@@ -176,14 +176,14 @@ trait Channel
      *
      * @return mixed
      */
-    public function renameChannel(string $roomId, string $name)
+    public static function renameChannel(string $roomId, string $name)
     {
-        $response = $this->buildUrl('channels.rename', 'post', [
+        $response = (new self)->buildUrl('channels.rename', 'post', [
             'name'   => $name,
             'roomId' => $roomId,
         ]);
 
-        return $this->response($response, json_decode($response->body())->channel);
+        return (new self)->response($response, json_decode($response->body())->channel);
     }
 
     /**
@@ -192,14 +192,14 @@ trait Channel
      *
      * @return mixed
      */
-    public function setChannelReadOnly(string $roomId, bool $readOnly = true)
+    public static function setChannelReadOnly(string $roomId, bool $readOnly = true)
     {
-        $response = $this->buildUrl('channels.setReadOnly', 'post', [
+        $response = (new self)->buildUrl('channels.setReadOnly', 'post', [
             'readOnly' => $readOnly,
             'roomId'   => $roomId,
         ]);
 
-        return $this->response($response, json_decode($response->body())->channel);
+        return (new self)->response($response, json_decode($response->body())->channel);
     }
 
     /**
@@ -208,13 +208,13 @@ trait Channel
      *
      * @return bool
      */
-    public function setChannelAnnouncement(string $roomId, string $announcement): bool
+    public static function setChannelAnnouncement(string $roomId, string $announcement): bool
     {
-        $response = $this->buildUrl('channels.setAnnouncement', 'post', [
+        $response = (new self)->buildUrl('channels.setAnnouncement', 'post', [
             'announcement' => $announcement,
             'roomId'       => $roomId,
         ]);
 
-        return $this->response($response, json_decode($response->body())->success);
+        return (new self)->response($response, json_decode($response->body())->success);
     }
 }

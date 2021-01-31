@@ -14,11 +14,11 @@ trait User
      *
      * @return mixed
      */
-    public function createUser(string $email, string $name, string $password, string $username, array $roles = ['user'], bool $requirePasswordChange = true)
+    public static function createUser(string $email, string $name, string $password, string $username, array $roles = ['user'], bool $requirePasswordChange = true)
     {
-        $response = $this->buildUrl('users.create', 'post', ['email' => $email, 'name' => $name, 'password' => $password, 'username' => $username, 'roles' => $roles, 'requirePasswordChange' => $requirePasswordChange]);
+        $response = (new self)->buildUrl('users.create', 'post', ['email' => $email, 'name' => $name, 'password' => $password, 'username' => $username, 'roles' => $roles, 'requirePasswordChange' => $requirePasswordChange]);
 
-        return $this->response($response, json_decode($response->body()));
+        return (new self)->response($response, json_decode($response->body()));
     }
 
     /**
@@ -27,33 +27,21 @@ trait User
      *
      * @return mixed
      */
-    public function deleteUser(string $username, bool $confirmRelinquish = true)
+    public static function deleteUser(string $username, bool $confirmRelinquish = true)
     {
-        $response = $this->buildUrl('users.delete', 'post', ['username' => $username, 'confirmRelinquish' => $confirmRelinquish]);
+        $response = (new self)->buildUrl('users.delete', 'post', ['username' => $username, 'confirmRelinquish' => $confirmRelinquish]);
 
-        return $this->response($response, json_decode($response->body())->success);
+        return (new self)->response($response, json_decode($response->body())->success);
     }
 
     /**
      * @return mixed
      */
-    public function getUserList()
+    public static function getUserList()
     {
-        $response = $this->buildUrl('users.list', 'get');
+        $response = (new self)->buildUrl('users.list', 'get');
 
-        return $this->response($response, json_decode($response->body())->users);
-    }
-
-    /**
-     * @param string $username
-     *
-     * @return mixed
-     */
-    public function getUserInfo(string $username)
-    {
-        $response = $this->buildUrl('users.info', 'get', ['username' => $username]);
-
-        return $this->response($response, json_decode($response->body())->user);
+        return (new self)->response($response, json_decode($response->body())->users);
     }
 
     /**
@@ -61,10 +49,22 @@ trait User
      *
      * @return mixed
      */
-    public function resetUserAvatar(string $username)
+    public static function getUserInfo(string $username)
     {
-        $response = $this->buildUrl('users.resetAvatar', 'post', ['username' => $username]);
+        $response = (new self)->buildUrl('users.info', 'get', ['username' => $username]);
 
-        return $this->response($response, json_decode($response->body())->success);
+        return (new self)->response($response, json_decode($response->body())->user);
+    }
+
+    /**
+     * @param string $username
+     *
+     * @return mixed
+     */
+    public static function resetUserAvatar(string $username)
+    {
+        $response = (new self)->buildUrl('users.resetAvatar', 'post', ['username' => $username]);
+
+        return (new self)->response($response, json_decode($response->body())->success);
     }
 }

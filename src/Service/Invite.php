@@ -11,13 +11,13 @@ trait Invite
      *
      * @return mixed
      */
-    public function findOrCreateInvite(string $roomId, string $validDays, string $maxUses)
+    public static function findOrCreateInvite(string $roomId, string $validDays, string $maxUses)
     {
-        $response = $this->buildUrl('findOrCreateInvite', 'post', ['rid' => $roomId, 'days' => $validDays, 'maxUses' => $maxUses]);
+        $response = (new self)->buildUrl('findOrCreateInvite', 'post', ['rid' => $roomId, 'days' => $validDays, 'maxUses' => $maxUses]);
 
         $decoded = json_decode($response->body());
 
-        return $this->response($response, (object) ['url' => $decoded->url, 'expires' => $decoded->expires, 'success' => $decoded->success]);
+        return (new self)->response($response, (object) ['url' => $decoded->url, 'expires' => $decoded->expires, 'success' => $decoded->success]);
     }
 
     /**
@@ -25,20 +25,20 @@ trait Invite
      *
      * @return mixed
      */
-    public function deleteInvite(string $id)
+    public static function deleteInvite(string $id)
     {
-        $response = $this->buildUrl('removeInvite', 'delete', ['_id' => $id]);
+        $response = (new self)->buildUrl('removeInvite', 'delete', ['_id' => $id]);
 
-        return $this->response($response, json_decode($response->body()));
+        return (new self)->response($response, json_decode($response->body()));
     }
 
     /**
      * @return mixed
      */
-    public function getInvites()
+    public static function getInvites()
     {
-        $response = $this->buildUrl('listInvites', 'get');
+        $response = (new self)->buildUrl('listInvites', 'get');
 
-        return $this->response($response, json_decode($response->body()));
+        return (new self)->response($response, json_decode($response->body()));
     }
 }

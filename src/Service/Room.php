@@ -12,14 +12,14 @@ trait Room
      *
      * @return mixed
      */
-    public function cleanRoomHistory(string $roomId, string $latest = null, string $oldest = null, bool $excludePinned = false)
+    public static function cleanRoomHistory(string $roomId, string $latest = null, string $oldest = null, bool $excludePinned = false)
     {
         $latest = $latest ?? now()->toDateTimeString();
         $oldest = $oldest ?? now()->subYear()->toDateTimeString();
 
-        $response = $this->buildUrl('rooms.cleanHistory', 'post', ['roomId' => $roomId, 'latest' => $latest, 'oldest' => $oldest, 'excludePinned' => $excludePinned]);
+        $response = (new self)->buildUrl('rooms.cleanHistory', 'post', ['roomId' => $roomId, 'latest' => $latest, 'oldest' => $oldest, 'excludePinned' => $excludePinned]);
 
-        return $this->response($response, json_decode($response->body())->success);
+        return (new self)->response($response, json_decode($response->body())->success);
     }
 
     /**
@@ -27,10 +27,10 @@ trait Room
      *
      * @return mixed
      */
-    public function getAllRooms(string $name = null)
+    public static function getAllRooms(string $name = null)
     {
-        $response = $this->buildUrl('rooms.adminRooms', 'get', ['filter' => $name]);
+        $response = (new self)->buildUrl('rooms.adminRooms', 'get', ['filter' => $name]);
 
-        return $this->response($response, json_decode($response->body())->rooms);
+        return (new self)->response($response, json_decode($response->body())->rooms);
     }
 }
