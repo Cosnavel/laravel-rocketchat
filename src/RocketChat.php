@@ -38,9 +38,9 @@ class RocketChat
      */
     public function __construct()
     {
-        $this->rocketChatApiBaseUrl =    config('rocketchat.ROCKET_CHAT_API_BASE_URL');
+        $this->rocketChatApiBaseUrl = config('rocketchat.ROCKET_CHAT_API_BASE_URL');
         $this->rocketChatAuthToken = config('rocketchat.ROCKET_CHAT_AUTH_TOKEN');
-        $this->rocketChatUserId =  config('rocketchat.ROCKET_CHAT_USER_ID');
+        $this->rocketChatUserId = config('rocketchat.ROCKET_CHAT_USER_ID');
     }
 
     /**
@@ -62,6 +62,7 @@ class RocketChat
         if ($this->headers) {
             return $params ? Http::withHeaders($this->headers)->$method($this->rocketChatApiBaseUrl.$path.'/', $params) : Http::withHeaders($this->headers)->$method($this->rocketChatApiBaseUrl.$path);
         }
+
         return $params ? Http::$method($this->rocketChatApiBaseUrl.$path.'/', $params) : Http::$method($this->rocketChatApiBaseUrl.$path);
     }
 

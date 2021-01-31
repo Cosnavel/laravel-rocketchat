@@ -5,7 +5,6 @@ namespace Cosnavel\RocketChat\Service;
 trait Auth
 {
     /**
-     *
      * @param string $username
      * @param string $password
      * @param bool $setEnv
