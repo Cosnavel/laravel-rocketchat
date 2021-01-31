@@ -7,11 +7,11 @@ trait Role
     /**
      * @return mixed
      */
-    public function getRoles()
+    public static function getRoles()
     {
-        $response = $this->buildUrl('roles.list', 'get');
+        $response = (new self)->buildUrl('roles.list', 'get');
 
-        return $this->response($response, json_decode($response->body())->roles);
+        return (new self)->response($response, json_decode($response->body())->roles);
     }
 
     /**
@@ -20,11 +20,11 @@ trait Role
      *
      * @return mixed
      */
-    public function addUserToRole(string $role, string $username)
+    public static function addUserToRole(string $role, string $username)
     {
-        $response = $this->buildUrl('roles.addUserToRole', 'post', ['roleName' => $role, 'username' => $username]);
+        $response = (new self)->buildUrl('roles.addUserToRole', 'post', ['roleName' => $role, 'username' => $username]);
 
-        return $this->response($response, json_decode($response->body())->success);
+        return (new self)->response($response, json_decode($response->body())->success);
     }
 
     /**
@@ -32,10 +32,10 @@ trait Role
      *
      * @return mixed
      */
-    public function getUsersInRole(string $role)
+    public static function getUsersInRole(string $role)
     {
-        $response = $this->buildUrl('roles.getUsersInRole', 'get', ['role' => $role]);
+        $response = (new self)->buildUrl('roles.getUsersInRole', 'get', ['role' => $role]);
 
-        return $this->response($response, json_decode($response->body())->users);
+        return (new self)->response($response, json_decode($response->body())->users);
     }
 }

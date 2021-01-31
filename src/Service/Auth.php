@@ -11,9 +11,9 @@ trait Auth
      * @return mixed
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function getApiTokens(string $username, string $password, bool $setEnv = false)
+    public static function getApiTokens(string $username, string $password, bool $setEnv = false)
     {
-        $response = $this->buildUrl('login', 'post', ['username' => $username, 'password' => $password]);
+        $response = (new self)->buildUrl('login', 'post', ['username' => $username, 'password' => $password]);
 
         $decoded = json_decode($response->body());
 
@@ -29,6 +29,6 @@ trait Auth
             config(['rocketchat.ROCKET_CHAT_USER_ID' => $userId]);
         }
 
-        return $this->response($response, (object) ['status' => $decoded->status, 'authToken' => $authToken, 'userId' => $userId]);
+        return (new self)->response($response, (object) ['status' => $decoded->status, 'authToken' => $authToken, 'userId' => $userId]);
     }
 }

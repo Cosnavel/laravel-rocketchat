@@ -36,16 +36,11 @@ class RocketChat
      *
      * @return void
      */
-    public function __construct(string $rocketChatApiBaseUrl, string $rocketChatAuthToken, string $rocketChatUserId)
+    public function __construct()
     {
-        $this->rocketChatApiBaseUrl = $rocketChatApiBaseUrl;
-        $this->rocketChatAuthToken = $rocketChatAuthToken;
-        $this->rocketChatUserId = $rocketChatUserId;
-
-        $this->headers = [
-            'X-Auth-Token' => $this->rocketChatAuthToken,
-            'X-User-Id'    => $this->rocketChatUserId,
-        ];
+        $this->rocketChatApiBaseUrl = config('rocketchat.ROCKET_CHAT_API_BASE_URL');
+        $this->rocketChatAuthToken = config('rocketchat.ROCKET_CHAT_AUTH_TOKEN');
+        $this->rocketChatUserId = config('rocketchat.ROCKET_CHAT_USER_ID');
     }
 
     /**
@@ -57,11 +52,18 @@ class RocketChat
      */
     private function buildUrl(string $path = '', string $method = 'get', $params = false)
     {
-        if ($params) {
-            return Http::withHeaders($this->headers)->$method($this->rocketChatApiBaseUrl.$path.'/', $params);
+        if ($this->rocketChatAuthToken && $this->rocketChatUserId) {
+            $this->headers = [
+                'X-Auth-Token' => $this->rocketChatAuthToken,
+                'X-User-Id'    => $this->rocketChatUserId,
+            ];
         }
 
-        return Http::withHeaders($this->headers)->$method($this->rocketChatApiBaseUrl.$path);
+        if ($this->headers) {
+            return $params ? Http::withHeaders($this->headers)->$method($this->rocketChatApiBaseUrl.$path.'/', $params) : Http::withHeaders($this->headers)->$method($this->rocketChatApiBaseUrl.$path);
+        }
+
+        return $params ? Http::$method($this->rocketChatApiBaseUrl.$path.'/', $params) : Http::$method($this->rocketChatApiBaseUrl.$path);
     }
 
     /**
