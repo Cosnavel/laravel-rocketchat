@@ -69,4 +69,24 @@ trait Group
 
         return (new self)->response($response, json_decode($response->body())->group);
     }
+
+    public static function addUserToPrivateChannel(string $roomId, string $userId)
+    {
+        $response = (new self)->buildUrl('groups.invite', 'post', [
+            'userId' => $userId,
+            'roomId' => $roomId,
+        ]);
+
+        return (new self)->response($response, json_decode($response->body())->success);
+    }
+
+    public static function removeUserFromPrivateChannel(string $roomId, string $userId)
+    {
+        $response = (new self)->buildUrl('groups.kick', 'post', [
+            'userId' => $userId,
+            'roomId' => $roomId,
+        ]);
+
+        return (new self)->response($response, json_decode($response->body())->success);
+    }
 }
